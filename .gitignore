@@ -1,3 +1,17 @@
+/eclipse/
+/bin/
+/.gradle
+/saves
+/logs
+/screenshots
+/run/
+\bin\
+/build/
+
+
+
+
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
@@ -45,3 +59,4 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+*.prefs
