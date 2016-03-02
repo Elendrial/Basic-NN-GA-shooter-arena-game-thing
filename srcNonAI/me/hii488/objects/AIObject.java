@@ -2,6 +2,7 @@ package me.hii488.objects;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import me.hii488.auxilary.GenericVector;
 import me.hii488.auxilary.Position;
@@ -21,17 +22,17 @@ public class AIObject extends PhysCircle{
 	
 	public int moveScale = 1;
 	
-	public AIObject(Position position, float mass, float radius, int aiNumber) {
-		super(position, new GenericVector(0,0), new GenericVector(0,0), mass, radius);
+	public AIObject(Position position, int aiNumber) {
+		super(position, new GenericVector(0,0), new GenericVector(0,0), 0, 5);
 		this.aiNumber = aiNumber;
 	}
 
-	public AIObject(int x, int y, float mass, float radius, int aiNumber){
-		this(new Position(x, y), mass, radius, aiNumber);
+	public AIObject(int x, int y, int aiNumber){
+		this(new Position(x, y), aiNumber);
 	}
 	
 	public AIObject(int aiNumber) {
-		this(0, 0, 0, 1, aiNumber);
+		this(0, 0, aiNumber);
 	}
 	
 	@Override
@@ -48,7 +49,7 @@ public class AIObject extends PhysCircle{
 		
 		int deltaX = 0, deltaY = 0, deltaR = 0;
 		
-		
+//		System.out.println(Arrays.toString(outputs));
 		
 		for(int i = 0; i < outputs.length; i++){
 			switch(outputs[i]){

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import me.hii488.objects.AIObject;
 import me.hii488.objects.BulletObject;
+import me.hii488.objects.PhysCircle;
 import me.hii488.objects.PhysObject;
 import me.hii488.objects.PhysWallObject;
 import me.hii488.registries.RegisteredObjects;
@@ -13,10 +14,10 @@ public class ObjectHandler {
 	
 	public static ArrayList<PhysObject> update(ArrayList<PhysObject> objs){
 		// NOTE #1 : This is messy and horrible, I apologise to anyone who ever thinks to read this code.
-		// NOTE #2 : I know a lot of heavily repeated code could be taken out by using a new method or some loops, but I'm too lazy, don't judge.
+		// NOTE #2 : I know a lot of heavily repeated code could be taken out by using a new method or some loops, but I'm too tired, I'll do it some other time.
 		for(int i = 0; i < objs.size(); i++){
 			if(objs.get(i) instanceof AIObject){
-				int[] sides = new int[3];
+				int[] sides = new int[4];
 				int moveScale = ((AIObject)objs.get(i)).moveScale;
 				Rectangle r = objs.get(i).getRect();
 				
@@ -30,9 +31,11 @@ public class ObjectHandler {
 					if(Math.floor(moveScale/j) != 0){
 						boolean b = true;
 						for(int k = 0; k < objs.size() && b; k++){
-							if(k == i) k++;
-							if(rleft.intersects(objs.get(k).getRect())){
-								b = false;
+							if(k == i ) k++;
+							if(k < objs.size()){
+								if(rleft.intersects(objs.get(k).getRect())){
+									b = false;
+								}
 							}
 						}
 						passable = b;
@@ -57,8 +60,10 @@ public class ObjectHandler {
 						boolean b = true;
 						for(int k = 0; k < objs.size() && b; k++){
 							if(k == i) k++;
-							if(rleft.intersects(objs.get(k).getRect())){
-								b = false;
+							if(k < objs.size()){
+								if(rleft.intersects(objs.get(k).getRect())){
+									b = false;
+								}
 							}
 						}
 						passable = b;
@@ -83,8 +88,10 @@ public class ObjectHandler {
 						boolean b = true;
 						for(int k = 0; k < objs.size() && b; k++){
 							if(k == i) k++;
-							if(rleft.intersects(objs.get(k).getRect())){
-								b = false;
+							if(k < objs.size()){
+								if(rleft.intersects(objs.get(k).getRect())){
+									b = false;
+								}
 							}
 						}
 						passable = b;
@@ -109,8 +116,10 @@ public class ObjectHandler {
 						boolean b = true;
 						for(int k = 0; k < objs.size() && b; k++){
 							if(k == i) k++;
-							if(rleft.intersects(objs.get(k).getRect())){
-								b = false;
+							if(k < objs.size()){
+								if(rleft.intersects(objs.get(k).getRect())){
+									b = false;
+								}
 							}
 						}
 						passable = b;
@@ -130,8 +139,10 @@ public class ObjectHandler {
 				@SuppressWarnings("unchecked")
 				ArrayList<PhysObject> temp = (ArrayList<PhysObject>) objs.clone();
 				temp.remove(i);
-				if(isColliding(temp, objs.get(i)) != null){
-					objs.get(i).updateOnTick();
+				PhysObject o = isColliding(temp, objs.get(i));
+				if(o != null){
+					((BulletObject)objs.get(i)).onDestroy();
+					((AIObject)o).timesShot++;
 				}
 				objs.get(i).updateOnTick();
 			}
@@ -143,16 +154,16 @@ public class ObjectHandler {
 	}
 	
 	public static PhysObject isColliding(ArrayList<PhysObject> objs, PhysObject object){
-		
-		// TODO : Check collisions
-		
-		for(int i = 0; i < objs.size(); i++){
-			if(objs.get(i) instanceof AIObject){
-				int dx = object.getPosition().getX() - objs.get(i).getPosition().getX();
-				int dy = object.getPosition().getY() - objs.get(i).getPosition().getY();
-				double distance = Math.sqrt(dx * dy);
-				if(distance < object.getRadius() + objs.get(i).getRadius()){
-					return objs.get(i);
+		// NOTE : Only supposed to work for Bullets colliding with AIOBjects, this will need updating if more shootables are used.
+		if(object instanceof PhysCircle){
+			for(int i = 0; i < objs.size(); i++){
+				if(objs.get(i) instanceof AIObject){
+					int dx = object.getPosition().getX() - objs.get(i).getPosition().getX();
+					int dy = object.getPosition().getY() - objs.get(i).getPosition().getY();
+					double distance = Math.sqrt(dx * dy);
+					if(distance < object.getRadius() + objs.get(i).getRadius()){
+						return objs.get(i);
+					}
 				}
 			}
 		}

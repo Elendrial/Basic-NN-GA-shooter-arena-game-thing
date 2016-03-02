@@ -8,6 +8,9 @@ public class AIController {
 	public static int amount;
 	
 	public static void setupAI(int AIs){
+		// TODO : Do all the stuff that's needed to remove this line
+		if(AIs > 4) AIs = 4;
+		
 		GeneticAlgorithm.newRandomGeneration();
 		
 		StartingObjectRegistry.makeArena(AIs);
@@ -48,6 +51,10 @@ public class AIController {
 				currentPositions[i] = currentPositions[i-1]+1;
 			}
 		}
+		
+	}
+	
+	public static void fitness(){
 		
 	}
 	
