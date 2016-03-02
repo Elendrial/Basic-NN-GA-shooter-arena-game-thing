@@ -2,6 +2,7 @@ package me.hii488.gameWindow;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import me.hii488.registries.RegisteredObjects;
 
@@ -16,9 +17,9 @@ public class Display extends Canvas{
 		for(int i = 0; i < RegisteredObjects.getObjs().size(); i++){
 			RegisteredObjects.getObjs().get(i).getRender(g);
 			
-//			Rectangle r = World.registeredObjects.getObjs().get(i).getRect();
-//			g.drawRect(r.x, r.y, r.width, r.height);
-//			g.drawString("Mid", World.registeredObjects.getObjs().get(i).getPosition().getX(), World.registeredObjects.getObjs().get(i).getPosition().getY());
+			Rectangle r = RegisteredObjects.getObjs().get(i).getRect();
+			g.drawRect(r.x, r.y, r.width, r.height);
+//			g.drawString("Mid", RegisteredObjects.getObjs().get(i).getPosition().getX(), RegisteredObjects.getObjs().get(i).getPosition().getY());
 			
 		}
 	}

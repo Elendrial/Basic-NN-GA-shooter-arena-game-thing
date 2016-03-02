@@ -1,5 +1,6 @@
 package me.hii488.objects;
 
+import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +24,7 @@ public class AIObject extends PhysCircle{
 	public int moveScale = 1;
 	
 	public AIObject(Position position, int aiNumber) {
-		super(position, new GenericVector(0,0), new GenericVector(0,0), 0, 5);
+		super(position, new GenericVector(0,0), new GenericVector(0,0), 0, 10);
 		this.aiNumber = aiNumber;
 	}
 
@@ -77,7 +78,7 @@ public class AIObject extends PhysCircle{
 			}
 		}
 		this.position.addToLocation(deltaX * moveScale, deltaY * moveScale);
-		this.rotation =+ deltaR;
+		this.rotation += deltaR;
 		if(rotation > 359) rotation -= 360;
 	}
 	
@@ -93,9 +94,10 @@ public class AIObject extends PhysCircle{
 		for(int i = 0; i < side; i++){
 			for(int j = 0; j < side; j++){
 				for(int k = 0; k < objectsInArea.size(); k++){
-					Rectangle r = new Rectangle();
-					r.setBounds((int)(this.position.getX()-50 + i*side), (int)(this.position.getY()-50 + j*side), (int)(side*side), (int)(side*side));
+					Rectangle r = new Rectangle((int)(this.position.getX()-50 + i*side), (int)(this.position.getY()-50 + j*side), (int)(side*side), (int)(side*side));
+				//	r.setBounds((int)(this.position.getX()-50 + i*side), (int)(this.position.getY()-50 + j*side), (int)(side*side), (int)(side*side));
 					if(r.intersects(objectsInArea.get(k).getRect())){
+						
 						f[(int) (i + j*side)] += 1;
 					}
 				}
@@ -114,5 +116,12 @@ public class AIObject extends PhysCircle{
 		if(onPredictiveTarget){
 			amountOnPredTarget++;
 		}
+	}
+	
+	@Override
+	public void getRender(Graphics g){
+		super.getRender(g);
+		g.drawLine(this.position.getX(), this.position.getY(), this.position.getX()+(int)(Math.cos(Math.toRadians(this.rotation))*radius), this.position.getY()+(int)(Math.sin(Math.toRadians(this.rotation))*radius));
+		
 	}
 }
