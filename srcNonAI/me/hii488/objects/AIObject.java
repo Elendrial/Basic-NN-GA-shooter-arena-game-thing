@@ -97,8 +97,16 @@ public class AIObject extends PhysCircle{
 					Rectangle r = new Rectangle((int)(this.position.getX()-50 + i*side), (int)(this.position.getY()-50 + j*side), (int)(side*side), (int)(side*side));
 				//	r.setBounds((int)(this.position.getX()-50 + i*side), (int)(this.position.getY()-50 + j*side), (int)(side*side), (int)(side*side));
 					if(r.intersects(objectsInArea.get(k).getRect())){
-						
-						f[(int) (i + j*side)] += 1;
+						// To change/add weights of different objects, change these values/add more.
+						if(objectsInArea.get(k) instanceof PhysWallObject){
+							f[(int) (i + j*side)] -= 5;
+						}
+						if(objectsInArea.get(k) instanceof BulletObject){
+							f[(int) (i + j*side)] -= 1;
+						}
+						if(objectsInArea.get(k) instanceof AIObject){
+							f[(int) (i + j*side)] += 5;
+						}
 					}
 				}
 			}

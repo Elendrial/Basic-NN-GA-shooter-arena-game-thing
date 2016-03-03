@@ -1,5 +1,6 @@
 package me.hii488.registries;
 
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import me.hii488.auxilary.Position;
@@ -40,7 +41,8 @@ public class RegisteredObjects {
 		return objs.indexOf(p);
 	}
 	
-	public static ArrayList<PhysObject> getObjsInRect(int x, int y, int width, int height){
+	// Left in because I might need it one day, who knows?
+	public static ArrayList<PhysObject> getObjsFullyInRect(int x, int y, int width, int height){
 		ArrayList<PhysObject> matchingObjs = new ArrayList<PhysObject>();
 		for(int i = 0; i < objs.size(); i++){
 			if(objs.get(i).getPosition().getX() >= x && objs.get(i).getPosition().getX() <= width && objs.get(i).getPosition().getX() <= height && objs.get(i).getPosition().getY() >= y){
@@ -49,6 +51,18 @@ public class RegisteredObjects {
 		}
 		return matchingObjs;
 	}
+	
+	public static ArrayList<PhysObject> getObjsInRect(int x, int y, int width, int height){
+		ArrayList<PhysObject> matchingObjs = new ArrayList<PhysObject>();
+		Rectangle r = new Rectangle(x, y, x + width, y + height);
+		for(int i = 0; i < objs.size(); i++){
+			if(objs.get(i).getRect().intersects(r)){
+				matchingObjs.add(objs.get(i));
+			}
+		}
+		return matchingObjs;
+	}
+
 	
 	
 	
