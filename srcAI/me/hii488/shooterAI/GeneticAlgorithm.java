@@ -2,6 +2,7 @@ package me.hii488.shooterAI;
 
 import java.util.ArrayList;
 
+import me.hii488.other.FileHandling;
 import me.hii488.shooterAI.NeuralNetwork.Child;
 
 public class GeneticAlgorithm {	
@@ -143,5 +144,9 @@ public class GeneticAlgorithm {
 		return layer < GeneralVars.nodesPerLayer.length-1 ? recurrentOutput(output, child, layer+1) : output;
 	}
 	
+	
+	public static void importGeneration(int runNumber, int generation){
+		FileHandling.loadChromos(runNumber, generation);
+	}
 	
 }

@@ -1,11 +1,13 @@
 package me.hii488.shooterAI;
 
+import me.hii488.other.FileHandling;
 import me.hii488.registries.StartingObjectRegistry;
 
 public class AIController {
 	
 	public static int[] currentPositions;
 	public static int amount;
+	public static int generation = 0;
 	
 	public static void setupAI(int AIs){
 		// TODO : Do all the stuff that's needed to remove this line
@@ -41,8 +43,10 @@ public class AIController {
 			//TODO : This, get it done, do it, go on you know you want to.......
 			//TODO : I can't remember what I'm supposed to do oh god what will I do? help ;-; (it's probably to do with fitness)
 			
+
+			FileHandling.saveGeneration(-1, generation, GeneticAlgorithm.children);
 			GeneticAlgorithm.nextGeneration();
-			
+			generation++;
 			return;
 		}
 		
