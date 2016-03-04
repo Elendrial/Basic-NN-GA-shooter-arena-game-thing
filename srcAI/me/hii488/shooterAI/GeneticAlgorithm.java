@@ -1,6 +1,7 @@
 package me.hii488.shooterAI;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import me.hii488.other.FileHandling;
 import me.hii488.shooterAI.NeuralNetwork.Child;
@@ -147,6 +148,15 @@ public class GeneticAlgorithm {
 	
 	public static void importGeneration(int runNumber, int generation){
 		FileHandling.loadChromos(runNumber, generation);
+	}
+	
+	public static void printChild(int index){
+		Child c = children.get(index);
+	//	for(int i = 0; i < c.layers.length; i++){
+			for(int j = 0; j < c.layers[0].nodes.length; j++){
+				System.out.println(Arrays.toString(c.layers[0].nodes[j].weights));
+			}
+	//	}
 	}
 	
 }
