@@ -5,3 +5,5 @@ The Neural Network and Genetic Algorithm code is all in the /srcAI/ folder, as w
 
 There is quite a lot of messy code as this was made over several months with a lot of breaks as I did other stuff, resulting in me forgetting where stuff is and what I've already done etc etc.
 Feel free to improve/fix code if you want or leave suggestions as to how I should improve the code/what I could do to test the NN GA's capabilities a bit more.
+
+If you want to contact me, message me on twitter (https://twitter.com/Hii488MC)
