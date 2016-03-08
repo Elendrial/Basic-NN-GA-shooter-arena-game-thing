@@ -47,12 +47,12 @@ public class AIObject extends PhysCircle{
 	@Override
 	public void updateOnTick(int[] unpassable){
 		String[] outputs = GeneticAlgorithm.getOutputs(getAiInputs(), AIController.currentPositions[aiNumber]);
-		
+				
 		int deltaX = 0, deltaY = 0, deltaR = 0;
 		
-//		System.out.println(Arrays.toString(outputs));
+		System.out.println(Arrays.toString(outputs));
 		
-		for(int i = 0; i < outputs.length; i++){
+		for(int i = 0; i < outputs.length && outputs[i] != null; i++){
 			switch(outputs[i]){
 			case "ml":
 				deltaX -= unpassable[0];
@@ -90,7 +90,7 @@ public class AIObject extends PhysCircle{
 	public float[] getAiInputs(){
 		ArrayList<PhysObject> objectsInArea = RegisteredObjects.getObjsInRect(this.position.getX()-50, this.position.getY()-50, 100, 100);
 		float[] f = new float[GeneralVars.inputs];
-		float side = (float) Math.sqrt(f.length);
+		float side = (float) Math.sqrt(f.length-1);
 		for(int i = 0; i < side; i++){
 			for(int j = 0; j < side; j++){
 				for(int k = 0; k < objectsInArea.size(); k++){
@@ -111,6 +111,8 @@ public class AIObject extends PhysCircle{
 				}
 			}
 		}
+		//System.out.println(Arrays.toString(f));
+		f[f.length-1] = (float) Math.toRadians(this.getRotation());
 		return f;
 	}
 	
@@ -130,6 +132,6 @@ public class AIObject extends PhysCircle{
 	public void getRender(Graphics g){
 		super.getRender(g);
 		g.drawLine(this.position.getX(), this.position.getY(), this.position.getX()+(int)(Math.cos(Math.toRadians(this.rotation))*radius), this.position.getY()+(int)(Math.sin(Math.toRadians(this.rotation))*radius));
-		
+	//	g.drawRect(this.position.getX()-500, this.position.getY()-500, 1000, 1000);
 	}
 }

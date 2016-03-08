@@ -10,8 +10,8 @@ public class GeneralVars {
 	// Does NOT include input "layer" - must end with outputs.length or greater
 	public static final int[] nodesPerLayer = {100, 50, 30, 30, 10, 7};
 	
-	// Must be a square number (aka x^2)
-	public static final int inputs = 100;
+	// Must be a square number + 1 (aka x^2 + 1)
+	public static final int inputs = 101;
 	
 	// m = move, r = rotate, l/r/u/d = directions, s = shoot
 	public static final String[] outputs = {"ml", "mr", "mu", "md", "rl", "rr", "s"};

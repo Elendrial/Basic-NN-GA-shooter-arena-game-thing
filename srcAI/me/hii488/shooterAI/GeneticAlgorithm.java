@@ -119,15 +119,21 @@ public class GeneticAlgorithm {
 
 	
 	
+	
+	// 100 inputs
 	public static String[] getOutputs(float[] inputs, int child){
 		
-		float[] midput = recurrentOutput(inputs, child, 1);
+		float[] midput = recurrentOutput(inputs, child, 0);
 		
-		String[] s = {};
+	//	System.out.println(Arrays.toString(midput));
 		
+		String[] s = new String[GeneralVars.outputs.length];
+		
+		int count = 0;
 		for(int i = 0; i < GeneralVars.outputs.length; i++){
 			if(midput[i] == 1){
-				s[s.length] = GeneralVars.outputs[i];
+				s[count] = GeneralVars.outputs[i];
+				count++;
 			}
 		}
 		
@@ -135,13 +141,17 @@ public class GeneticAlgorithm {
 		return s;
 	}
 	
+	
 	public static float[] recurrentOutput(float[] inputs, int child, int layer){
+		// Create new variable to hold outputs.
 		float[] output = new float[GeneralVars.nodesPerLayer[layer]];
 		
+		// Get the outputs from all the nodes.
 		for(int i = 0; i < GeneralVars.nodesPerLayer[layer]; i++){
 			output[i] = children.get(child).layers[layer].nodes[i].activated(inputs);
 		}
 		
+		//System.out.println(Arrays.toString(output));
 		return layer < GeneralVars.nodesPerLayer.length-1 ? recurrentOutput(output, child, layer+1) : output;
 	}
 	
