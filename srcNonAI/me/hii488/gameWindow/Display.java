@@ -17,8 +17,8 @@ public class Display extends Canvas{
 		for(int i = 0; i < RegisteredObjects.getObjs().size(); i++){
 			RegisteredObjects.getObjs().get(i).getRender(g);
 			
-			Rectangle r = RegisteredObjects.getObjs().get(i).getRect();
-			g.drawRect(r.x, r.y, r.width, r.height);
+//			Rectangle r = RegisteredObjects.getObjs().get(i).getRect();
+//			g.drawRect(r.x, r.y, r.width, r.height);
 //			g.drawString("Mid", RegisteredObjects.getObjs().get(i).getPosition().getX(), RegisteredObjects.getObjs().get(i).getPosition().getY());
 			
 		}

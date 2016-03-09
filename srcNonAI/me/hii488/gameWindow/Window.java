@@ -9,9 +9,6 @@ import javax.swing.JFrame;
 
 import me.hii488.ObjectHandler;
 import me.hii488.Settings;
-import me.hii488.World;
-import me.hii488.objects.PhysObject;
-import me.hii488.objects.PhysWallObject;
 import me.hii488.registries.RegisteredObjects;
 
 public class Window implements Runnable{
