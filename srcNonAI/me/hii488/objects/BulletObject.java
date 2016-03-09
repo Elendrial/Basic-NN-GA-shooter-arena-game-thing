@@ -14,9 +14,10 @@ public class BulletObject extends PhysCircle{
 	protected boolean onTarget;
 	protected boolean onPredictiveTarget;
 	protected float speedConstant = 10f;
+	protected float timeAlive = 0f;
+	
 	
 	public BulletObject(Position position, float mass, float radius, PhysObject shooter){
-		this.position = position;
 		this.acceleration = new GenericVector(0f,0f);
 		this.mass = mass;
 		this.radius = radius;
@@ -24,7 +25,9 @@ public class BulletObject extends PhysCircle{
 		
 		workOutVelocity();
 		isOnTarget();
-		isOnPredictiveTarget();
+	//	isOnPredictiveTarget();
+		
+		this.position = new Position(position.getX() + velocity.getX()*radius*1.5f, position.getY() + velocity.getY()*radius*1.5f);
 	}
 	
 	public BulletObject(int x, int y, float mass, float radius, PhysObject shooter){
@@ -37,17 +40,26 @@ public class BulletObject extends PhysCircle{
 		
 	public void onDestroy(){
 		((AIObject) shooter).onBulletDestroyed(closestToEnemy, onTarget, onPredictiveTarget);
+		RegisteredObjects.removeObject(this);
+		RegisteredObjects.removeMovableObject(this);
 	}
 	
 	@Override
 	public void updateOnTick(){
-		position.addToLocation(velocity.getX(), velocity.getY());
-		
-		
-		PhysObject i = RegisteredObjects.findClostestToPoint(this.position);
-		float dist = i.distToPoint(this.position) - i.radius;
-		if(closestToEnemy > i.distToPoint(this.position)){
-			closestToEnemy = dist;
+		timeAlive++;
+		if(timeAlive < 500){
+			position.addToLocation(velocity.getX(), velocity.getY());
+			
+			
+			PhysObject i = RegisteredObjects.findClostestToPoint(this.position);
+			float dist = i.distToPoint(this.position) - i.radius;
+	
+			if(closestToEnemy > i.distToPoint(this.position)){
+				closestToEnemy = dist;
+			}
+		}
+		else{
+			onDestroy();
 		}
 	}
 	
@@ -77,6 +89,8 @@ public class BulletObject extends PhysCircle{
 	}
 	
 	// I *THINK* this is done ( I hope ;-; )
+	// It's not ;-; - causes infinite loop somehow, which eventually crashes the entire thing .-.
+	// TODO : this
 	public void isOnPredictiveTarget(){
 		ArrayList<PhysObject> objs = RegisteredObjects.getMovableObjs();
 		objs.add(this);

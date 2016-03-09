@@ -144,7 +144,9 @@ public class ObjectHandler {
 					((BulletObject)objs.get(i)).onDestroy();
 					((AIObject)o).timesShot++;
 				}
-				objs.get(i).updateOnTick();
+				else{
+					objs.get(i).updateOnTick();
+				}
 			}
 			
 		}
@@ -155,7 +157,7 @@ public class ObjectHandler {
 	
 	public static PhysObject isColliding(ArrayList<PhysObject> objs, PhysObject object){
 		// NOTE : Only supposed to work for Bullets colliding with AIOBjects, this will need updating if more shootables are used.
-		if(object instanceof PhysCircle){
+		if(object instanceof BulletObject){
 			for(int i = 0; i < objs.size(); i++){
 				if(objs.get(i) instanceof AIObject){
 					int dx = object.getPosition().getX() - objs.get(i).getPosition().getX();

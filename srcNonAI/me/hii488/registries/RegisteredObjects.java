@@ -41,6 +41,10 @@ public class RegisteredObjects {
 		return objs.indexOf(p);
 	}
 	
+	public static void removeObject(PhysObject obj){
+		objs.remove(obj);
+	}
+	
 	// Left in because I might need it one day, who knows?
 	public static ArrayList<PhysObject> getObjsFullyInRect(int x, int y, int width, int height){
 		ArrayList<PhysObject> matchingObjs = new ArrayList<PhysObject>();
@@ -93,6 +97,9 @@ public class RegisteredObjects {
 		return aiObjs.indexOf(p);
 	}
 	
+	public static void removeAIObject(PhysObject obj){
+		aiObjs.remove(obj);
+	}
 	
 	
 	public static ArrayList<PhysObject> getMovableObjs() {
@@ -122,6 +129,9 @@ public class RegisteredObjects {
 		}
 	}
 	
+	public static void removeMovableObject(PhysObject obj){
+		movableObjs.remove(obj);
+	}
 	
 	
 	

@@ -42,9 +42,8 @@ public class NeuralNetwork {
 			
 			nodeNumber = number;
 			
-			weights = new float[(level != 0 ? GeneralVars.nodesPerLayer[level-1] : 100) + 1];
+			weights = new float[(level != 0 ? GeneralVars.nodesPerLayer[level-1] : 100)+1];
 		}
-		
 		
 		// Checks if the node will output a 0 or 1
 		public float activated(float[] inputs){
@@ -54,8 +53,13 @@ public class NeuralNetwork {
 				temp += inputs[i] * weights[i];
 			}
 			
+	//		System.out.println(temp + "" + weights[weights.length-1]);
+			
+			if(temp >= weights[weights.length-1]) return 1;
+			return 0;
+			
 			// Sigmoid function
-			return (float) (1/(1 + Math.pow(Math.E, -temp)));
+		//	return (float) (1/(1 + Math.pow(Math.E, -temp)));
 		}
 	}
 }
