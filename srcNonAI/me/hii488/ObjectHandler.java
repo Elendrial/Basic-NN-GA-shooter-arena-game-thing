@@ -159,17 +159,18 @@ public class ObjectHandler {
 		// NOTE : Only supposed to work for Bullets colliding with AIOBjects, this will need updating if more shootables are used.
 		if(object instanceof BulletObject){
 			for(int i = 0; i < objs.size(); i++){
-				if(objs.get(i) instanceof AIObject){
+				if(objs.get(i) instanceof AIObject && !objs.get(i).equals(((BulletObject)object).shooter)){
 					int dx = object.getPosition().getX() - objs.get(i).getPosition().getX();
 					int dy = object.getPosition().getY() - objs.get(i).getPosition().getY();
 					double distance = Math.sqrt(dx * dy);
 					if(distance < object.getRadius() + objs.get(i).getRadius()){
+//						System.out.println("COLLIDING");
 						return objs.get(i);
+						
 					}
 				}
 			}
 		}
-		
 		return null;
 	}
 	

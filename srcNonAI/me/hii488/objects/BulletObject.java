@@ -13,7 +13,7 @@ public class BulletObject extends PhysCircle{
 	protected float closestToEnemy = 10000f;
 	protected boolean onTarget;
 	protected boolean onPredictiveTarget;
-	protected float speedConstant = 10f;
+	protected float speedConstant = 3f;
 	protected float timeAlive = 0f;
 	
 	
@@ -26,8 +26,8 @@ public class BulletObject extends PhysCircle{
 		workOutVelocity();
 		isOnTarget();
 	//	isOnPredictiveTarget();
-		
-		this.position = new Position(position.getX() + velocity.getX()*radius*1.5f, position.getY() + velocity.getY()*radius*1.5f);
+
+		this.position = new Position(position.getX() + velocity.getX()*shooter.radius*1.1f/speedConstant, position.getY() + velocity.getY()*shooter.radius*1.1f/speedConstant);
 	}
 	
 	public BulletObject(int x, int y, float mass, float radius, PhysObject shooter){

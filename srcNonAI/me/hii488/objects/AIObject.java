@@ -50,7 +50,7 @@ public class AIObject extends PhysCircle{
 				
 		int deltaX = 0, deltaY = 0, deltaR = 0;
 		
-		System.out.println(Arrays.toString(outputs));
+		//System.out.println(Arrays.toString(outputs));
 		
 		for(int i = 0; i < outputs.length && outputs[i] != null; i++){
 			switch(outputs[i]){
