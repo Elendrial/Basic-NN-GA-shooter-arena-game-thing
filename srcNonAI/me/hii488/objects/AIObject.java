@@ -133,5 +133,12 @@ public class AIObject extends PhysCircle{
 		super.getRender(g);
 		g.drawLine(this.position.getX(), this.position.getY(), this.position.getX()+(int)(Math.cos(Math.toRadians(this.rotation))*radius), this.position.getY()+(int)(Math.sin(Math.toRadians(this.rotation))*radius));
 	//	g.drawRect(this.position.getX()-500, this.position.getY()-500, 1000, 1000);
+	//	g.drawString(getString(), (int)this.position.getAbsX(), (int)this.position.getAbsY());
 	}
+	
+	// NOTE : I may give each object a proper ID at some point, although depends on how much more work I put into this
+	public String getString(){
+		return aiNumber + "";
+	}
+	
 }

@@ -160,11 +160,12 @@ public class ObjectHandler {
 		if(object instanceof BulletObject){
 			for(int i = 0; i < objs.size(); i++){
 				if(objs.get(i) instanceof AIObject && !objs.get(i).equals(((BulletObject)object).shooter)){
-					int dx = object.getPosition().getX() - objs.get(i).getPosition().getX();
-					int dy = object.getPosition().getY() - objs.get(i).getPosition().getY();
-					double distance = Math.sqrt(dx * dy);
+					int dx = Math.abs(object.getPosition().getX() - objs.get(i).getPosition().getX());
+					int dy = Math.abs(object.getPosition().getY() - objs.get(i).getPosition().getY());
+					double distance = Math.sqrt(dx*dx + dy*dy);
 					if(distance < object.getRadius() + objs.get(i).getRadius()){
-//						System.out.println("COLLIDING");
+						//System.out.println("Colliding with : " + ((AIObject)objs.get(i)).getString() + "\t Distance : " + distance);
+						//System.out.println("dx : " + dx + "\t dy : " + dy + "\n");
 						return objs.get(i);
 						
 					}
