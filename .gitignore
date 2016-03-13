@@ -59,3 +59,5 @@ Network Trash Folder
 Temporary Items
 .apdisk
 *.prefs
+*.xml
+.metadata/.plugins/org.eclipse.core.resources/.projects/RemoteSystemsTempFiles/.indexes/properties.index

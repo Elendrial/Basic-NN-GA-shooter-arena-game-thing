@@ -57,8 +57,11 @@ public class RegisteredObjects {
 	}
 	
 	public static ArrayList<PhysObject> getObjsInRect(int x, int y, int width, int height){
+		return getObjsInRect(new Rectangle(x,y,width,height));
+	}
+
+	public static ArrayList<PhysObject> getObjsInRect(Rectangle r){
 		ArrayList<PhysObject> matchingObjs = new ArrayList<PhysObject>();
-		Rectangle r = new Rectangle(x, y, x + width, y + height);
 		for(int i = 0; i < objs.size(); i++){
 			if(objs.get(i).getRect().intersects(r)){
 				matchingObjs.add(objs.get(i));
@@ -66,7 +69,6 @@ public class RegisteredObjects {
 		}
 		return matchingObjs;
 	}
-
 	
 	
 	
