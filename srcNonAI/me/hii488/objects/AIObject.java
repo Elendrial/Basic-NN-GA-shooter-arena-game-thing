@@ -90,10 +90,28 @@ public class AIObject extends PhysCircle{
 	public float[] getAiInputs(){
 		ArrayList<PhysObject> objectsInArea = RegisteredObjects.getObjsInRect(this.position.getX()-inputRectSideLength/2, this.position.getY()-inputRectSideLength/2, inputRectSideLength, inputRectSideLength);
 		float[] f = new float[GeneralVars.inputs];
-		
-		// TODO: Fix this oh god why not this again ;-;
-		
-		
+		float side = (float) Math.sqrt(f.length-1);
+		for(int i = 0; i < side; i++){
+			for(int j = 0; j < side; j++){
+				for(int k = 0; k < objectsInArea.size(); k++){
+					Rectangle r = new Rectangle((int)(this.position.getX()-inputRectSideLength/2 + i*side), (int)(this.position.getY()-inputRectSideLength/2 + j*side), (int)(side), (int)(side));
+				//	r.setBounds((int)(this.position.getX()-50 + i*side), (int)(this.position.getY()-50 + j*side), (int)(side*side), (int)(side*side));
+					if(r.intersects(objectsInArea.get(k).getRect())){
+						// To change/add weights of different objects, change these values/add more.
+						if(objectsInArea.get(k) instanceof PhysWallObject){
+							f[(int) (i + j*side)] -= 5;
+						}
+						if(objectsInArea.get(k) instanceof BulletObject){
+							f[(int) (i + j*side)] -= 1;
+						}
+						if(objectsInArea.get(k) instanceof AIObject){
+							f[(int) (i + j*side)] += 5;
+						}
+					}
+				}
+			}
+		}
+		//System.out.println(Arrays.toString(f));
 		f[f.length-1] = (float) Math.toRadians(this.getRotation());
 		return f;
 	}
@@ -123,13 +141,13 @@ public class AIObject extends PhysCircle{
 	// NOTE    : Keep this code the same as the getAiInputs(), to make sure what is visualised is actually what is happening.
 	public void renderInputs(Graphics g){
 		Color c = g.getColor();
-		ArrayList<PhysObject> objectsInArea = RegisteredObjects.getObjsInRect(this.position.getX()-inputRectSideLength, this.position.getY()-inputRectSideLength, inputRectSideLength, inputRectSideLength);
+		ArrayList<PhysObject> objectsInArea = RegisteredObjects.getObjsInRect(this.position.getX()-inputRectSideLength/2, this.position.getY()-inputRectSideLength/2, inputRectSideLength, inputRectSideLength);
 		float[] f = new float[GeneralVars.inputs];
 		float side = (float) Math.sqrt(f.length-1);
 		for(int i = 0; i < side; i++){
 			for(int j = 0; j < side; j++){
 				for(int k = 0; k < objectsInArea.size(); k++){
-					Rectangle r = new Rectangle((int)(this.position.getX()-inputRectSideLength + i*side), (int)(this.position.getY()-inputRectSideLength + j*side), (int)(side*side), (int)(side*side));
+					Rectangle r = new Rectangle((int)(this.position.getX()-inputRectSideLength/2 + i*side), (int)(this.position.getY()-inputRectSideLength/2 + j*side), (int)(side), (int)(side));
 				//	r.setBounds((int)(this.position.getX()-50 + i*side), (int)(this.position.getY()-50 + j*side), (int)(side*side), (int)(side*side));
 					if(r.intersects(objectsInArea.get(k).getRect())){
 						// To change/add weights of different objects, change these values/add more.
@@ -147,8 +165,9 @@ public class AIObject extends PhysCircle{
 			//	System.out.println(i + j * side);
 				if(f[(int) (i + j*side)] > 0)g.setColor(Color.green);
 				if(f[(int) (i + j*side)] < 0)g.setColor(Color.red);
-				if(i + j*side < 1)g.drawRect((int)(this.position.getX()-inputRectSideLength + i*side), (int)(this.position.getY()-inputRectSideLength + j*side), (int)(side*side), (int)(side*side));
-				g.drawString(""+f[(int) (i + j*side)], (int)(this.position.getX()-inputRectSideLength + i*side*2), (int)(this.position.getY()-inputRectSideLength + j*side*2));
+				if(f[(int) (i + j*side)] == 0)g.setColor(c);
+				/*if(i + j*side < 2 )*/g.drawRect((int)(this.position.getX()-inputRectSideLength/2 + i*side), (int)(this.position.getY()-inputRectSideLength/2 + j*side), (int)(side), (int)(side));
+				//g.drawString(""+f[(int) (i + j*side)], (int)(this.position.getX()-inputRectSideLength + i*side*2), (int)(this.position.getY()-inputRectSideLength + j*side*2));
 			}
 		}
 		g.setColor(c);
