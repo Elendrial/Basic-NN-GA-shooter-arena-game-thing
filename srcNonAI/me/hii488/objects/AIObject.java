@@ -21,7 +21,7 @@ public class AIObject extends PhysCircle{
 	public int timesShot = 0;
 	
 	public int moveScale = 1;
-	public int inputRectSideLength = 100;
+	public int inputRectSideLength = 1000;
 	
 	public AIObject(Position position, int aiNumber) {
 		super(position, new GenericVector(0,0), new GenericVector(0,0), 0, 10);
@@ -90,22 +90,23 @@ public class AIObject extends PhysCircle{
 	public float[] getAiInputs(){
 		ArrayList<PhysObject> objectsInArea = RegisteredObjects.getObjsInRect(this.position.getX()-inputRectSideLength/2, this.position.getY()-inputRectSideLength/2, inputRectSideLength, inputRectSideLength);
 		float[] f = new float[GeneralVars.inputs];
-		float side = (float) Math.sqrt(f.length-1);
-		for(int i = 0; i < side; i++){
-			for(int j = 0; j < side; j++){
+		float side = (float) (inputRectSideLength/Math.sqrt(f.length-1));
+		float tempNameBecauseICantThinkOfAnythingElse = (float) Math.sqrt(f.length-1);
+		for(int i = 0; i < tempNameBecauseICantThinkOfAnythingElse; i++){
+			for(int j = 0; j < tempNameBecauseICantThinkOfAnythingElse; j++){
 				for(int k = 0; k < objectsInArea.size(); k++){
 					Rectangle r = new Rectangle((int)(this.position.getX()-inputRectSideLength/2 + i*side), (int)(this.position.getY()-inputRectSideLength/2 + j*side), (int)(side), (int)(side));
 				//	r.setBounds((int)(this.position.getX()-50 + i*side), (int)(this.position.getY()-50 + j*side), (int)(side*side), (int)(side*side));
 					if(r.intersects(objectsInArea.get(k).getRect())){
 						// To change/add weights of different objects, change these values/add more.
 						if(objectsInArea.get(k) instanceof PhysWallObject){
-							f[(int) (i + j*side)] -= 5;
+							f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] -= 5;
 						}
 						if(objectsInArea.get(k) instanceof BulletObject){
-							f[(int) (i + j*side)] -= 1;
+							f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] -= 1;
 						}
 						if(objectsInArea.get(k) instanceof AIObject){
-							f[(int) (i + j*side)] += 5;
+							f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] += 5;
 						}
 					}
 				}
@@ -143,29 +144,30 @@ public class AIObject extends PhysCircle{
 		Color c = g.getColor();
 		ArrayList<PhysObject> objectsInArea = RegisteredObjects.getObjsInRect(this.position.getX()-inputRectSideLength/2, this.position.getY()-inputRectSideLength/2, inputRectSideLength, inputRectSideLength);
 		float[] f = new float[GeneralVars.inputs];
-		float side = (float) Math.sqrt(f.length-1);
-		for(int i = 0; i < side; i++){
-			for(int j = 0; j < side; j++){
+		float side = (float) (inputRectSideLength/Math.sqrt(f.length-1));
+		float tempNameBecauseICantThinkOfAnythingElse = (float) Math.sqrt(f.length-1);
+		for(int i = 0; i < tempNameBecauseICantThinkOfAnythingElse; i++){
+			for(int j = 0; j < tempNameBecauseICantThinkOfAnythingElse; j++){
 				for(int k = 0; k < objectsInArea.size(); k++){
 					Rectangle r = new Rectangle((int)(this.position.getX()-inputRectSideLength/2 + i*side), (int)(this.position.getY()-inputRectSideLength/2 + j*side), (int)(side), (int)(side));
 				//	r.setBounds((int)(this.position.getX()-50 + i*side), (int)(this.position.getY()-50 + j*side), (int)(side*side), (int)(side*side));
 					if(r.intersects(objectsInArea.get(k).getRect())){
 						// To change/add weights of different objects, change these values/add more.
 						if(objectsInArea.get(k) instanceof PhysWallObject){
-							f[(int) (i + j*side)] -= 5;
+							f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] -= 5;
 						}
 						if(objectsInArea.get(k) instanceof BulletObject){
-							f[(int) (i + j*side)] -= 1;
+							f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] -= 1;
 						}
-						if(objectsInArea.get(k) instanceof AIObject){
-							f[(int) (i + j*side)] += 5;
+						if(objectsInArea.get(k) instanceof AIObject && ((AIObject)objectsInArea.get(k)).aiNumber != this.aiNumber){
+							f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] += 5;
 						}
 					}
 				}
 			//	System.out.println(i + j * side);
-				if(f[(int) (i + j*side)] > 0)g.setColor(Color.green);
-				if(f[(int) (i + j*side)] < 0)g.setColor(Color.red);
-				if(f[(int) (i + j*side)] == 0)g.setColor(c);
+				if(f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] > 0)g.setColor(Color.green);
+				if(f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] < 0)g.setColor(Color.red);
+				if(f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] == 0)g.setColor(c);
 				/*if(i + j*side < 2 )*/g.drawRect((int)(this.position.getX()-inputRectSideLength/2 + i*side), (int)(this.position.getY()-inputRectSideLength/2 + j*side), (int)(side), (int)(side));
 				//g.drawString(""+f[(int) (i + j*side)], (int)(this.position.getX()-inputRectSideLength + i*side*2), (int)(this.position.getY()-inputRectSideLength + j*side*2));
 			}
