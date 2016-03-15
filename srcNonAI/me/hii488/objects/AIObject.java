@@ -110,7 +110,7 @@ public class AIObject extends PhysCircle{
 						if(objectsInArea.get(k) instanceof BulletObject){
 							f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] -= 1;
 						}
-						if(objectsInArea.get(k) instanceof AIObject){
+						if(objectsInArea.get(k) instanceof AIObject && ((AIObject)objectsInArea.get(k)).aiNumber != this.aiNumber){
 							f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] += 5;
 						}
 					}
@@ -162,7 +162,6 @@ public class AIObject extends PhysCircle{
 							f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] -= 5;
 						}
 						if(objectsInArea.get(k) instanceof BulletObject){
-							System.out.println("Bullet");
 							f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] -= 1;
 						}
 						if(objectsInArea.get(k) instanceof AIObject && ((AIObject)objectsInArea.get(k)).aiNumber != this.aiNumber){
@@ -174,7 +173,6 @@ public class AIObject extends PhysCircle{
 				if(f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] > 0)g.setColor(Color.green);
 				if(f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] < 0)g.setColor(Color.red);
 				if(f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] == 0)g.setColor(c);
-				if(f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] == -1) System.out.println("-1");
 				/*if(i + j*side < 2 )*/g.drawRect((int)(this.position.getX()-inputRectSideLength/2 + i*side), (int)(this.position.getY()-inputRectSideLength/2 + j*side), (int)(side), (int)(side));
 				//g.drawString(""+f[(int) (i + j*side)], (int)(this.position.getX()-inputRectSideLength + i*side*2), (int)(this.position.getY()-inputRectSideLength + j*side*2));
 			}

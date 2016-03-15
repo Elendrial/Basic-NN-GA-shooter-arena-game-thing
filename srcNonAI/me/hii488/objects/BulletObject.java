@@ -35,7 +35,7 @@ public class BulletObject extends PhysCircle{
 	}
 	
 	public BulletObject(PhysObject shooter){
-		this(shooter.position.getX() , shooter.position.getY(),0,0.5f, shooter);
+		this(shooter.position.getX() , shooter.position.getY(),0,1f, shooter);
 	}
 		
 	public void onDestroy(){
