@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import me.hii488.ObjectHandler;
 import me.hii488.Settings;
 import me.hii488.objects.AIObject;
+import me.hii488.objects.PhysObject;
 import me.hii488.registries.RegisteredObjects;
 import me.hii488.shooterAI.AIController;
 
@@ -132,18 +133,17 @@ public class Window implements Runnable{
             }
             
             if(totalTick % Settings.WorldSettings.ticksPerRound == 0){
-            	ArrayList<AIObject> objs = RegisteredObjects.getAiObjs();
+            	ArrayList<PhysObject> objs = RegisteredObjects.getObjs();
+        		RegisteredObjects.wipeBullets();
             	for(int i = 0; i < objs.size(); i++){
-            		objs.get(i).calculateAndSendFitness();
-            		objs.get(i).resetPosition();
-            		RegisteredObjects.wipeBullets();
-            		try {
-		//				Thread.sleep(1000);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+            		if(objs.get(i) instanceof AIObject){
+	            		((AIObject)objs.get(i)).calculateAndSendFitness();
+	            		((AIObject)objs.get(i)).resetPosition();
+            		}
             	}
+            	
+            	RegisteredObjects.setObjs(objs);
+            	
             	// Means it goes up once too often, but who really cares that much?
             	totalTick++;
             	AIController.updateChildren();	

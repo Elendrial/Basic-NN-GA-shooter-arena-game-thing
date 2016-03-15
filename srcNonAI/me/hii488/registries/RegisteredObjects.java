@@ -63,7 +63,6 @@ public class RegisteredObjects {
 
 	public static ArrayList<PhysObject> getObjsInRect(Rectangle r){
 		ArrayList<PhysObject> matchingObjs = new ArrayList<PhysObject>();
-		ArrayList<PhysObject> temp = getObjs();
 		for(int i = 0; i < objs.size(); i++){
 			if(objs.get(i).getRect().intersects(r)){
 				matchingObjs.add(objs.get(i));
@@ -72,7 +71,6 @@ public class RegisteredObjects {
 				}
 			}
 			else if(objs.get(i) instanceof BulletObject){
-		//		System.out.print("Bullet : ");
 				if(Math.abs((double)(objs.get(i).getPosition().getAbsX() - r.getX())) < r.getWidth() && Math.abs((double)(objs.get(i).getPosition().getAbsY() - r.getY())) < r.getHeight()){
 					matchingObjs.add(objs.get(i));
 				}

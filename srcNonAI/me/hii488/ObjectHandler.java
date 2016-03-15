@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import me.hii488.objects.AIObject;
 import me.hii488.objects.BulletObject;
-import me.hii488.objects.PhysCircle;
 import me.hii488.objects.PhysObject;
 import me.hii488.objects.PhysWallObject;
 import me.hii488.registries.RegisteredObjects;
@@ -164,8 +163,6 @@ public class ObjectHandler {
 					int dy = Math.abs(object.getPosition().getY() - objs.get(i).getPosition().getY());
 					double distance = Math.sqrt(dx*dx + dy*dy);
 					if(distance < object.getRadius() + objs.get(i).getRadius()){
-						//System.out.println("Colliding with : " + ((AIObject)objs.get(i)).getString() + "\t Distance : " + distance);
-						//System.out.println("dx : " + dx + "\t dy : " + dy + "\n");
 						return objs.get(i);
 						
 					}

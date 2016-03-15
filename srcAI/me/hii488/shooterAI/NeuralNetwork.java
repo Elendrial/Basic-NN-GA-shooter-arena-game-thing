@@ -13,10 +13,6 @@ public class NeuralNetwork {
 			}
 		}
 		
-		public void calculateFitness(int bulletsOnTarget, float accuracy, int timeSurvived){
-			
-		}
-		
 	}
 	
 	public class Layer{

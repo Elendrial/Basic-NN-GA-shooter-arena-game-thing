@@ -19,17 +19,18 @@ public class AIObject extends PhysCircle{
 	public int amountOnTarget = 0;
 	public int amountOnPredTarget = 0;
 	public int timesShot = 0;
-	
+	public int totalDistanceMoved = 0;
 	public int moveScale = 1;
 	public int inputRectSideLength = 100;
-	
+	public int shootCooldown = 0;
 	public final Position startingPosition;
+	
 	
 	public AIObject(Position position, int aiNumber) {
 		super(position, new GenericVector(0,0), new GenericVector(0,0), 0, 10);
 		this.aiNumber = aiNumber;
 		
-		this.startingPosition = position;
+		this.startingPosition = position.getPositionClone();
 	}
 
 	public AIObject(int x, int y, int aiNumber){
@@ -56,6 +57,8 @@ public class AIObject extends PhysCircle{
 		
 		//System.out.println(Arrays.toString(outputs));
 		
+		if(shootCooldown > 0)shootCooldown -= 1;
+		
 		for(int i = 0; i < outputs.length && outputs[i] != null; i++){
 			switch(outputs[i]){
 			case "ml":
@@ -77,8 +80,11 @@ public class AIObject extends PhysCircle{
 				deltaR --;
 				break;
 			case "s":
-				new BulletObject(this).registerWithWindow();
-				//timesShot++;
+				if(shootCooldown <=0){
+					new BulletObject(this).registerWithWindow();
+					timesShot++;
+					shootCooldown += 5;
+				}
 				break;
 			}
 		}
@@ -107,7 +113,7 @@ public class AIObject extends PhysCircle{
 						if(objectsInArea.get(k) instanceof PhysWallObject){
 							f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] -= 5;
 						}
-						if(objectsInArea.get(k) instanceof BulletObject){
+						if(objectsInArea.get(k) instanceof BulletObject && ((AIObject)((BulletObject)objectsInArea.get(k)).shooter).aiNumber != this.aiNumber){
 							f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] -= 1;
 						}
 						if(objectsInArea.get(k) instanceof AIObject && ((AIObject)objectsInArea.get(k)).aiNumber != this.aiNumber){
@@ -161,7 +167,7 @@ public class AIObject extends PhysCircle{
 						if(objectsInArea.get(k) instanceof PhysWallObject){
 							f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] -= 5;
 						}
-						if(objectsInArea.get(k) instanceof BulletObject){
+						if(objectsInArea.get(k) instanceof BulletObject && ((AIObject)((BulletObject)objectsInArea.get(k)).shooter).aiNumber != this.aiNumber){
 							f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] -= 1;
 						}
 						if(objectsInArea.get(k) instanceof AIObject && ((AIObject)objectsInArea.get(k)).aiNumber != this.aiNumber){
@@ -187,7 +193,9 @@ public class AIObject extends PhysCircle{
 	}
 	
 	public void resetPosition(){
-		this.position = this.startingPosition;
+		System.out.println(startingPosition.toString());
+		this.position = this.startingPosition.getPositionClone();
+		this.rotation = 0f;
 	}
 	
 	// NOTE : I may give each object a proper ID at some point, although depends on how much more work I put into this

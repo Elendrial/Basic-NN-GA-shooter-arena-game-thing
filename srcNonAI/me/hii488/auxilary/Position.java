@@ -41,4 +41,13 @@ public class Position {
 		this.y += y;
 	}
 	
+	public Position getPositionClone(){
+		return new Position(getAbsX(), getAbsY());
+	}
+	
+	@Override
+	public String toString(){
+		return "x: " + x + ", y: " + y;
+	}
+	
 }
