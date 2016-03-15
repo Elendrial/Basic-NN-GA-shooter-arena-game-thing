@@ -4,12 +4,15 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
 import me.hii488.ObjectHandler;
 import me.hii488.Settings;
+import me.hii488.objects.AIObject;
 import me.hii488.registries.RegisteredObjects;
+import me.hii488.shooterAI.AIController;
 
 public class Window implements Runnable{
 	
@@ -91,7 +94,7 @@ public class Window implements Runnable{
     
     @Override
     public void run() {
-        int fps = 0, tick = 0;
+        int fps = 0, tick = 0, totalTick = 0;
         
         double fpsTimer = System.currentTimeMillis();
         double secondsPerTick = 1D / targetTPS;
@@ -107,6 +110,7 @@ public class Window implements Runnable{
             while(unprocessed >= 1){
                 tick();
                 tick++;
+                totalTick++;
                 unprocessed--;
             }
 
@@ -125,6 +129,15 @@ public class Window implements Runnable{
                 System.out.printf("FPS: %d, TPS: %d%n", fps, tick);
                 fps = 0; tick = 0;
                 fpsTimer += 1000;
+            }
+            
+            if(totalTick > Settings.WorldSettings.ticksPerRound){
+            	ArrayList<AIObject> objs = RegisteredObjects.getAiObjs();
+            	for(int i = 0; i < objs.size(); i++){
+            		objs.get(i).calculateAndSendFitness();
+            	}
+            	
+            	AIController.updateChildren();
             }
         }
 

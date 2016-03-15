@@ -1,5 +1,7 @@
 package me.hii488.shooterAI;
 
+import java.util.HashMap;
+
 import me.hii488.other.FileHandling;
 import me.hii488.registries.StartingObjectRegistry;
 
@@ -28,6 +30,7 @@ public class AIController {
 	}
 	
 	public static void updateChildren(){
+		
 		currentPositions[currentPositions.length-1] += 1;
 		
 		// For correct incrementation of which Chromosomes will active at once
@@ -39,11 +42,8 @@ public class AIController {
 			}
 		}
 		
+		// Updates generation.
 		if(currentPositions[0] == -1){
-			//TODO : This, get it done, do it, go on you know you want to.......
-			//TODO : I can't remember what I'm supposed to do oh god what will I do? help ;-; (it's probably to do with fitness)
-			
-
 			FileHandling.saveGeneration(-1, generation, GeneticAlgorithm.children);
 			GeneticAlgorithm.nextGeneration();
 			generation++;
@@ -58,8 +58,10 @@ public class AIController {
 		
 	}
 	
-	public static void fitness(){
+	public void printFitnessStandings(){
+		HashMap<Integer, Integer> ranks = new HashMap<>();
 		
+		// TODO : This. Not necessary but would be nice.
 	}
 	
 }

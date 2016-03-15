@@ -21,7 +21,7 @@ public class AIObject extends PhysCircle{
 	public int timesShot = 0;
 	
 	public int moveScale = 1;
-	public int inputRectSideLength = 1000;
+	public int inputRectSideLength = 100;
 	
 	public AIObject(Position position, int aiNumber) {
 		super(position, new GenericVector(0,0), new GenericVector(0,0), 0, 10);
@@ -173,6 +173,12 @@ public class AIObject extends PhysCircle{
 			}
 		}
 		g.setColor(c);
+	}
+	
+	public void calculateAndSendFitness(){
+		int fitness = 0;
+		int accuracy = (amountOnTarget+amountOnPredTarget) / timesShot;
+		// TODO
 	}
 	
 	// NOTE : I may give each object a proper ID at some point, although depends on how much more work I put into this

@@ -6,6 +6,8 @@ public class Settings {
 	
 		public static int TargetTPS = 30;
 		public static float currentSpeed = 1;
+		
+		public static int ticksPerRound = 900;
 	}
 	
 	
