@@ -144,9 +144,9 @@ public class Window implements Runnable{
 						e.printStackTrace();
 					}
             	}
-            	
-            	AIController.updateChildren();
-            	
+            	// Means it goes up once too often, but who really cares that much?
+            	totalTick++;
+            	AIController.updateChildren();	
             }
         }
 
