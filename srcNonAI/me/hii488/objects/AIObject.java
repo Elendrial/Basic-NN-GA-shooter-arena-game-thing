@@ -23,9 +23,13 @@ public class AIObject extends PhysCircle{
 	public int moveScale = 1;
 	public int inputRectSideLength = 100;
 	
+	public final Position startingPosition;
+	
 	public AIObject(Position position, int aiNumber) {
 		super(position, new GenericVector(0,0), new GenericVector(0,0), 0, 10);
 		this.aiNumber = aiNumber;
+		
+		this.startingPosition = position;
 	}
 
 	public AIObject(int x, int y, int aiNumber){
@@ -74,6 +78,7 @@ public class AIObject extends PhysCircle{
 				break;
 			case "s":
 				new BulletObject(this).registerWithWindow();
+				//timesShot++;
 				break;
 			}
 		}
@@ -157,6 +162,7 @@ public class AIObject extends PhysCircle{
 							f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] -= 5;
 						}
 						if(objectsInArea.get(k) instanceof BulletObject){
+							System.out.println("Bullet");
 							f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] -= 1;
 						}
 						if(objectsInArea.get(k) instanceof AIObject && ((AIObject)objectsInArea.get(k)).aiNumber != this.aiNumber){
@@ -168,6 +174,7 @@ public class AIObject extends PhysCircle{
 				if(f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] > 0)g.setColor(Color.green);
 				if(f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] < 0)g.setColor(Color.red);
 				if(f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] == 0)g.setColor(c);
+				if(f[(int) (i + j*tempNameBecauseICantThinkOfAnythingElse)] == -1) System.out.println("-1");
 				/*if(i + j*side < 2 )*/g.drawRect((int)(this.position.getX()-inputRectSideLength/2 + i*side), (int)(this.position.getY()-inputRectSideLength/2 + j*side), (int)(side), (int)(side));
 				//g.drawString(""+f[(int) (i + j*side)], (int)(this.position.getX()-inputRectSideLength + i*side*2), (int)(this.position.getY()-inputRectSideLength + j*side*2));
 			}
@@ -177,8 +184,12 @@ public class AIObject extends PhysCircle{
 	
 	public void calculateAndSendFitness(){
 		int fitness = 0;
-		int accuracy = (amountOnTarget+amountOnPredTarget) / timesShot;
+//		int accuracy = (amountOnTarget+amountOnPredTarget) / timesShot;
 		// TODO
+	}
+	
+	public void resetPosition(){
+		this.position = this.startingPosition;
 	}
 	
 	// NOTE : I may give each object a proper ID at some point, although depends on how much more work I put into this

@@ -131,13 +131,22 @@ public class Window implements Runnable{
                 fpsTimer += 1000;
             }
             
-            if(totalTick > Settings.WorldSettings.ticksPerRound){
+            if(totalTick % Settings.WorldSettings.ticksPerRound == 0){
             	ArrayList<AIObject> objs = RegisteredObjects.getAiObjs();
             	for(int i = 0; i < objs.size(); i++){
             		objs.get(i).calculateAndSendFitness();
+            		objs.get(i).resetPosition();
+            		RegisteredObjects.wipeBullets();
+            		try {
+		//				Thread.sleep(1000);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
             	}
             	
             	AIController.updateChildren();
+            	
             }
         }
 

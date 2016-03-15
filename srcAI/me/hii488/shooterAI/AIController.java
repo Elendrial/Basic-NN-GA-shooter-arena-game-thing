@@ -30,7 +30,7 @@ public class AIController {
 	}
 	
 	public static void updateChildren(){
-		
+		System.out.println("New Children");
 		currentPositions[currentPositions.length-1] += 1;
 		
 		// For correct incrementation of which Chromosomes will active at once
@@ -47,6 +47,7 @@ public class AIController {
 			FileHandling.saveGeneration(-1, generation, GeneticAlgorithm.children);
 			GeneticAlgorithm.nextGeneration();
 			generation++;
+			System.out.println("New Generation");
 			return;
 		}
 		
