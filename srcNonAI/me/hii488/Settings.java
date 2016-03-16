@@ -4,7 +4,7 @@ public class Settings {
 	
 	public static class WorldSettings{
 
-		public static int TargetTPS = 2500;
+		public static int TargetTPS = 1200;
 		public static float currentSpeed = 1;
 		
 		public static int ticksPerRound = 1800;

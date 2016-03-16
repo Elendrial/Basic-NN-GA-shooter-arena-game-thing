@@ -148,7 +148,10 @@ public class GeneticAlgorithm {
 		
 		// Get the outputs from all the nodes.
 		for(int i = 0; i < GeneralVars.nodesPerLayer[layer]; i++){
-			output[i] = children.get(child).layers[layer].nodes[i].activated(inputs);
+			try{
+				output[i] = children.get(child).layers[layer].nodes[i].activated(inputs);
+			}
+			catch(Exception e){}
 		}
 		
 		//System.out.println(Arrays.toString(output));

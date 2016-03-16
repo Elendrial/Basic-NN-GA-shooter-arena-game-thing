@@ -114,7 +114,9 @@ public class Window implements Runnable{
                 totalTick++;
                 unprocessed--;
             }
-
+            if(unprocessed > targetTPS * 5) unprocessed = 0;
+            
+            
             // This is NOT to sleep, but to limit the game loop
             try {
                 Thread.sleep(1);

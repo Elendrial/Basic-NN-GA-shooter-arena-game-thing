@@ -45,10 +45,13 @@ public class AIController {
 		}
 		
 		// Updates generation.
-		if(currentPositions[0] == -1){
+		if(currentPositions[0] == 21-amount){
 			FileHandling.saveGeneration(-1, generation, GeneticAlgorithm.children);
 			GeneticAlgorithm.nextGeneration();
 			generation++;
+			for(int i = 0; i < amount; i++){
+				currentPositions[i] = i;
+			}
 			return;
 		}
 		
