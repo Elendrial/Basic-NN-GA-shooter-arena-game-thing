@@ -12,7 +12,12 @@ public class Phys2D {
 		window = new Window("Phys2D", 1000, 800);
 		
 		AIController.setupAI(2);
+		
+//		FileHandling.saveGeneration(-1, 0, GeneticAlgorithm.children);
 		StartingObjectRegistry.initObjects();
+		
+//		GeneticAlgorithm.importGeneration(0, -1);
+		
 		
 		window.start();
 	}

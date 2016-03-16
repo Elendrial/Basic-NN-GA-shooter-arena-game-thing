@@ -30,7 +30,7 @@ public class NeuralNetwork {
 		
 	}
 	
-	public class Node{
+	public class Node {
 		public float[] weights;
 		public final int nodeNumber;
 		

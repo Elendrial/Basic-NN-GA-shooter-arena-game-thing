@@ -2,7 +2,6 @@ package me.hii488.gameWindow;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
-import java.awt.Rectangle;
 
 import me.hii488.registries.RegisteredObjects;
 

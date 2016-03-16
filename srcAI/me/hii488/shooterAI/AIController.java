@@ -12,11 +12,14 @@ public class AIController {
 	public static int generation = 0;
 	public static int iteration = 0;
 	
+	public static int runNumber = -1;
+	
 	public static void setupAI(int AIs){
 		// TODO : Do all the stuff that's needed to remove this line
 		if(AIs > 4) AIs = 4;
 		
 		GeneticAlgorithm.newRandomGeneration();
+	//	GeneticAlgorithm.importGeneration(0, 12);
 		
 		StartingObjectRegistry.makeArena(AIs);
 		
@@ -46,8 +49,8 @@ public class AIController {
 		
 		// Updates generation.
 		if(currentPositions[0] == 21-amount){
-			FileHandling.saveGeneration(-1, generation, GeneticAlgorithm.children);
-			GeneticAlgorithm.nextGeneration();
+			FileHandling.saveGeneration(runNumber, generation, GeneticAlgorithm.children);
+			GeneticAlgorithm.children = GeneticAlgorithm.nextGeneration();
 			generation++;
 			for(int i = 0; i < amount; i++){
 				currentPositions[i] = i;
