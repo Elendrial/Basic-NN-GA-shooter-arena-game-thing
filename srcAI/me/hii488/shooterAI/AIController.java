@@ -10,6 +10,7 @@ public class AIController {
 	public static int[] currentPositions;
 	public static int amount;
 	public static int generation = 0;
+	public static int iteration = 0;
 	
 	public static void setupAI(int AIs){
 		// TODO : Do all the stuff that's needed to remove this line
@@ -30,7 +31,8 @@ public class AIController {
 	}
 	
 	public static void updateChildren(){
-		System.out.println("New Children");
+		iteration++;
+		System.out.println("\n\tGeneration: " + generation + "\tIteration: " + iteration);
 		currentPositions[currentPositions.length-1] += 1;
 		
 		// For correct incrementation of which Chromosomes will active at once
@@ -47,7 +49,6 @@ public class AIController {
 			FileHandling.saveGeneration(-1, generation, GeneticAlgorithm.children);
 			GeneticAlgorithm.nextGeneration();
 			generation++;
-			System.out.println("New Generation");
 			return;
 		}
 		

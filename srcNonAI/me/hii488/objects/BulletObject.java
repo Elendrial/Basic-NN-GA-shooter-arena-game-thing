@@ -51,7 +51,7 @@ public class BulletObject extends PhysCircle{
 			position.addToLocation(velocity.getX(), velocity.getY());
 			
 			
-			PhysObject i = RegisteredObjects.findClostestToPoint(this.position);
+			PhysObject i = RegisteredObjects.findClostestToPoint(this.position, (AIObject) shooter);
 			float dist = i.distToPoint(this.position) - i.radius;
 	
 			if(closestToEnemy > i.distToPoint(this.position)){

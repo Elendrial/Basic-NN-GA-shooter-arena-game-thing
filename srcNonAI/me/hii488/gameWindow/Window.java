@@ -108,7 +108,7 @@ public class Window implements Runnable{
             now = System.nanoTime();
             unprocessed += (now - then) / nsPerTick;
             then = now;
-            while(unprocessed >= 1){
+            while(unprocessed >= 1 && totalTick <= Settings.WorldSettings.ticksPerRound){
                 tick();
                 tick++;
                 totalTick++;
@@ -132,20 +132,19 @@ public class Window implements Runnable{
                 fpsTimer += 1000;
             }
             
-            if(totalTick % Settings.WorldSettings.ticksPerRound == 0){
+            if(totalTick > Settings.WorldSettings.ticksPerRound){
             	ArrayList<PhysObject> objs = RegisteredObjects.getObjs();
         		RegisteredObjects.wipeBullets();
             	for(int i = 0; i < objs.size(); i++){
             		if(objs.get(i) instanceof AIObject){
 	            		((AIObject)objs.get(i)).calculateAndSendFitness();
-	            		((AIObject)objs.get(i)).resetPosition();
+	            		((AIObject)objs.get(i)).resetAIObj();
             		}
             	}
             	
             	RegisteredObjects.setObjs(objs);
             	
-            	// Means it goes up once too often, but who really cares that much?
-            	totalTick++;
+            	totalTick = 0;
             	AIController.updateChildren();	
             }
         }

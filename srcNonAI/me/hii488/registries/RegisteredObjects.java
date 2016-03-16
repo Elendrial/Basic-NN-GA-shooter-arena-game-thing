@@ -159,6 +159,25 @@ public class RegisteredObjects {
 		
 		return objs.get(objectNumber);
 	}
+	
+	// FOR BULLET CLOSEST STUFF ONLY
+	public static PhysObject findClostestToPoint(Position p, AIObject ignore){
+		float closestDist = 10000;
+		int objectNumber = 0;
+		for(int i = 0; i < objs.size(); i++){
+			if(objs.get(i) instanceof AIObject){
+				if(((AIObject)objs.get(i)).aiNumber != ignore.aiNumber){
+					float j = objs.get(i).distToPoint(p) ;
+					if(j < closestDist){
+						closestDist = j;
+						objectNumber = i;
+					}
+				}
+			}
+		}
+		
+		return objs.get(objectNumber);
+	}
 
 	
 	public static void wipeBullets(){

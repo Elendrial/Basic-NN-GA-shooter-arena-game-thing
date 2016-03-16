@@ -15,15 +15,19 @@ import me.hii488.shooterAI.GeneticAlgorithm;
 public class AIObject extends PhysCircle{
 	
 	public final int aiNumber;
+	public final Position startingPosition;
+	
 	public float closest = 10000;
+	
 	public int amountOnTarget = 0;
 	public int amountOnPredTarget = 0;
 	public int timesShot = 0;
+	public int shootCooldown = 0;
+	public int shootCounter = 0;
+	
 	public int totalDistanceMoved = 0;
 	public int moveScale = 1;
-	public int inputRectSideLength = 100;
-	public int shootCooldown = 0;
-	public final Position startingPosition;
+	public int inputRectSideLength = 500;
 	
 	
 	public AIObject(Position position, int aiNumber) {
@@ -82,13 +86,14 @@ public class AIObject extends PhysCircle{
 			case "s":
 				if(shootCooldown <=0){
 					new BulletObject(this).registerWithWindow();
-					timesShot++;
+					shootCounter++;
 					shootCooldown += 5;
 				}
 				break;
 			}
 		}
 		this.position.addToLocation(deltaX * moveScale, deltaY * moveScale);
+		this.totalDistanceMoved += Math.abs(deltaX)+Math.abs(deltaY);
 		this.rotation += deltaR;
 		if(rotation > 359) rotation -= 360;
 	}
@@ -146,7 +151,7 @@ public class AIObject extends PhysCircle{
 		g.drawLine(this.position.getX(), this.position.getY(), this.position.getX()+(int)(Math.cos(Math.toRadians(this.rotation))*radius), this.position.getY()+(int)(Math.sin(Math.toRadians(this.rotation))*radius));
 	//	g.drawRect(this.position.getX()-500, this.position.getY()-500, 1000, 1000);
 	//	g.drawString(getString(), (int)this.position.getAbsX(), (int)this.position.getAbsY());
-		renderInputs(g);
+	//	renderInputs(g);
 	}
 	
 	// WARNING : Do not use this unless debugging, it'll probably slow down the program quite a bit.
@@ -186,16 +191,38 @@ public class AIObject extends PhysCircle{
 		g.setColor(c);
 	}
 	
+	//TODO : Tune fitness algorithm.
 	public void calculateAndSendFitness(){
 		int fitness = 0;
-//		int accuracy = (amountOnTarget+amountOnPredTarget) / timesShot;
-		// TODO
+		int accuracy = (shootCounter ==0) ? -1 :(amountOnTarget+amountOnPredTarget) / shootCounter;
+		
+		if(accuracy != -1){
+			fitness += 20;
+			if(closest != 0){
+				fitness += Math.floor((1/Math.abs(closest/2))*100D);
+			}
+			fitness += accuracy * 10;
+			fitness += amountOnTarget * 5;
+			fitness -= timesShot > 10 ? 50 : timesShot * 5;
+			fitness += this.totalDistanceMoved / 20;
+		}
+		if(fitness < 0) fitness = 0;
+
+		System.out.print("AI Number : " + AIController.currentPositions[aiNumber] + "\tLocal Fitness : " + fitness + "\t");
+		GeneticAlgorithm.children.get(AIController.currentPositions[aiNumber]).fitness += fitness;
+		System.out.println("Total Fitness : "+GeneticAlgorithm.children.get(AIController.currentPositions[aiNumber]).fitness);
 	}
 	
-	public void resetPosition(){
-		System.out.println(startingPosition.toString());
+	public void resetAIObj(){
 		this.position = this.startingPosition.getPositionClone();
 		this.rotation = 0f;
+		this.amountOnPredTarget = 0;
+		this.amountOnTarget = 0;
+		this.closest = 10000f;
+		this.shootCooldown = 0;
+		this.shootCounter = 0;
+		this.timesShot = 0;
+		this.totalDistanceMoved = 0;
 	}
 	
 	// NOTE : I may give each object a proper ID at some point, although depends on how much more work I put into this

@@ -3,11 +3,11 @@ package me.hii488;
 public class Settings {
 	
 	public static class WorldSettings{
-	
-		public static int TargetTPS = 30;
+
+		public static int TargetTPS = 2500;
 		public static float currentSpeed = 1;
 		
-		public static int ticksPerRound = 900;
+		public static int ticksPerRound = 1800;
 	}
 	
 	
