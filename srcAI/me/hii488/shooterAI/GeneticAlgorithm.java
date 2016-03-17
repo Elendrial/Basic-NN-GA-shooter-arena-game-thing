@@ -40,7 +40,7 @@ public class GeneticAlgorithm {
 			
 			Child child = spliceChildren(parentA, parentB);
 			child = mutateChild(child);
-			
+			childPool.add(child);
 		}
 		 // RANDOM NOTES:
 		// for fitness, use (1/closest a bullet got to the enemy) * x

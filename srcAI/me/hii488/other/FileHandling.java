@@ -75,6 +75,12 @@ public class FileHandling implements Serializable{
 			}
 		}
 		
+		if(!new File(baseFilePath + i + "x" + generation).isDirectory()){
+			found = true;
+			new File(baseFilePath + i + "x" + generation).mkdir();
+			AIController.runNumber = i;
+		}
+		
 		try {
 			for(int j = 0; j < children.size(); j++){
 				for(int k = 0; k < children.get(j).layers.length; k++){

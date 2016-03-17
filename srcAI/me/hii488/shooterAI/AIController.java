@@ -31,6 +31,8 @@ public class AIController {
 		for(int i = 0; i < amount; i++){
 			currentPositions[i] = i;
 		}
+
+		FileHandling.saveGeneration(runNumber, generation, GeneticAlgorithm.children);
 	}
 	
 	public static void updateChildren(){
@@ -49,9 +51,9 @@ public class AIController {
 		
 		// Updates generation.
 		if(currentPositions[0] == 21-amount){
-			FileHandling.saveGeneration(runNumber, generation, GeneticAlgorithm.children);
-			GeneticAlgorithm.children = GeneticAlgorithm.nextGeneration();
 			generation++;
+			GeneticAlgorithm.children = GeneticAlgorithm.nextGeneration();
+			FileHandling.saveGeneration(runNumber, generation, GeneticAlgorithm.children);
 			for(int i = 0; i < amount; i++){
 				currentPositions[i] = i;
 			}

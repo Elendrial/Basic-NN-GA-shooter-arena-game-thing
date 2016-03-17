@@ -16,7 +16,7 @@ public class Phys2D {
 //		FileHandling.saveGeneration(-1, 0, GeneticAlgorithm.children);
 		StartingObjectRegistry.initObjects();
 		
-//		GeneticAlgorithm.importGeneration(0, -1);
+//		GeneticAlgorithm.importGeneration(9, 2);
 		
 		
 		window.start();

@@ -8,7 +8,7 @@ public class GeneralVars {
 	public static Random rand = new Random();
 	
 	// Does NOT include input "layer" - must end with outputs.length or greater
-	public static final int[] nodesPerLayer = {100, 50, 30, 30, 10, 7};
+	public static final int[] nodesPerLayer = {100, 30, 7};
 	
 	// Must be a square number + 1 (aka x^2 + 1)
 	public static final int inputs = 101;
